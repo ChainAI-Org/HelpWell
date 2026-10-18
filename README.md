@@ -3102,7 +3102,8 @@ production. No test reaches the network.
 Open-source HelpWell is the AI side of support. When you want people on the
 other side of the conversation too, and email that reaches customers after
 they leave, [HelpWell Cloud](https://helpwell.ai) is the same product, hosted,
-with a team inbox, live chat, email marketing and automations built in.
+with a team inbox, live chat, email marketing, automations and contact
+enrichment built in.
 
 <img src="docs/media/cloud-live-chat.gif" alt="HelpWell Cloud: a visitor asks the widget a question, the AI answers from the docs, and the visitor leaves an email so the team can reply later" width="100%">
 
@@ -3111,6 +3112,7 @@ with a team inbox, live chat, email marketing and automations built in.
 | <img src="docs/media/cloud-inbox.png" alt="The HelpWell Cloud team inbox: a customer conversation with the AI's answer, a teammate's reply and the customer's details" width="100%"> | **Live agent support**<br><br>A shared inbox for your team. People pick up where the AI stopped, in the same conversation, with internal notes, mentions, assignment and saved replies. Replies the visitor misses go out by email, and email replies come back to the same thread. Slack alerts, and replies from Slack. |
 | <img src="docs/media/cloud-newsletter.gif" alt="Writing a newsletter in HelpWell Cloud: a one-line brief, three drafts written from the changelog and help center, then the editor" width="100%"> | **Email marketing**<br><br>On the Growth plan: newsletters written with AI from your changelog and help center, a block editor, your brand kit, subject-line tests, scheduling and reports. Forms with double opt-in, contacts and segments. Sent through your own Resend account. |
 | <img src="docs/media/cloud-journey.gif" alt="Building an automation in HelpWell Cloud: starting from the recover a failed payment recipe and editing the journey" width="100%"> | **Automations**<br><br>Journeys that react to what customers do: emails, in-app messages, waits, conditions and splits, started from recipes like onboarding, trial ending and failed payment. |
+| <img src="docs/media/cloud-enrichment.png" alt="Enrichment settings in HelpWell Cloud: the latest signup with job title, seniority, company, size, industry and LinkedIn filled in by LeadFuze, and an ICP score" width="100%"> | **Contact enrichment**<br><br>On the Growth plan, know who your users are. When someone signs up through a HelpWell form and confirms their email, Cloud looks them up once in LeadFuze and saves their job title, seniority, department, LinkedIn, location and company details (name, size, industry, revenue and country) on the contact. An ICP score ranks each signup, so you can segment, start journeys and get a Slack alert for strong ones. |
 
 Cloud also hosts your help center on your own domain, keeps your docs current
 from GitHub, and adds team reports. Your AI still runs on your own OpenRouter
