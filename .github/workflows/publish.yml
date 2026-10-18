@@ -6,9 +6,10 @@ name: Publish
 # never sees a package whose dependency is not out yet, and a version that is
 # already on npm is skipped, so a failed run can be re-run.
 #
-# Authentication: npm trusted publishing (OIDC) for this workflow once each
-# package has it set on npmjs.com. The very first release, before the packages
-# exist, uses an NPM_TOKEN repository secret instead; delete it afterwards.
+# Authentication: npm trusted publishing (OIDC). Each package names this
+# workflow (ChainAI-Org / HelpWell / publish.yml) as its trusted publisher on
+# npmjs.com, so no npm token is stored anywhere. npm 11.5.1 or later exchanges
+# the job's id-token for a short-lived publish credential.
 
 on:
   push:
@@ -64,8 +65,6 @@ jobs:
           done
 
       - name: Publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm install -g npm@11
           out="$RUNNER_TEMP/tarballs"
