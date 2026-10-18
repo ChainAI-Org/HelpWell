@@ -1070,6 +1070,18 @@ describe('credit line', () => {
     expect(credit?.querySelector('svg')?.getAttribute('viewBox')).toBe('24 24 776 171');
   });
 
+  it('links to helpwell.ai with the referrer kept and a campaign tag', async () => {
+    await mount();
+    widget.open();
+    await flush();
+
+    const link = $('.poweredBy a');
+    expect(link?.getAttribute('href')).toBe(
+      'https://helpwell.ai/?utm_source=helpwell-widget&utm_medium=powered-by',
+    );
+    expect(link?.getAttribute('rel')).toBe('noopener');
+  });
+
   it('is removed when the customer turns it off', async () => {
     await mount({ config: { helpCenter: { poweredBy: false } } as never });
     widget.open();

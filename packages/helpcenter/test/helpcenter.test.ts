@@ -429,6 +429,10 @@ describe('branding', () => {
     expect(page).toContain('Powered by');
     expect(page).toContain('viewBox="24 24 776 171"');
     expect(page.toLowerCase()).not.toContain('github logo');
+    // The click keeps its referrer, so helpwell.ai can see which help center it came from.
+    expect(page).toContain(
+      'href="https://helpwell.ai/?utm_source=helpwell-help-center&amp;utm_medium=powered-by" target="_blank" rel="noopener"',
+    );
   });
 
   it('drops the credit line when the customer turns it off', async () => {

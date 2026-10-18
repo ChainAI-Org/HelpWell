@@ -253,8 +253,10 @@ function footer(site: SiteContext): RawHtml {
 </footer>`;
   }
 
+  // The credit link keeps the referrer (strict-origin-when-cross-origin by
+  // default, so helpwell.ai sees only this help center's origin).
   return html`<footer class="hc-footer">
-  <span class="hc-credit">Powered by <a href="https://helpwell.ai" target="_blank" rel="noopener noreferrer">${raw(wordmark('currentColor', 'hc-credit'))}</a></span>${contact}
+  <span class="hc-credit">Powered by <a href="https://helpwell.ai/?utm_source=helpwell-help-center&amp;utm_medium=powered-by" target="_blank" rel="noopener">${raw(wordmark('currentColor', 'hc-credit'))}</a></span>${contact}
 </footer>`;
 }
 

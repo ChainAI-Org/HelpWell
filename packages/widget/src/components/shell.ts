@@ -321,11 +321,16 @@ function viewForTab(key: (typeof TABS)[number]['key'], context: ViewContext): Vi
 
 /* --------------------------------------------------------------- footer */
 
+// The credit link keeps the referrer (the host page's own referrer policy
+// decides how much; browsers default to the origin only), so helpwell.ai can
+// see which site a click came from. The widget itself still sends nothing.
+const CREDIT_URL = 'https://helpwell.ai/?utm_source=helpwell-widget&utm_medium=powered-by';
+
 function creditLine(): HTMLElement {
   const link = h('a', {
-    href: 'https://helpwell.ai',
+    href: CREDIT_URL,
     target: '_blank',
-    rel: 'noopener noreferrer',
+    rel: 'noopener',
   });
   link.appendChild(document.createTextNode('Powered by '));
   link.appendChild(svg(wordmark('currentColor', 'hw-credit')));
