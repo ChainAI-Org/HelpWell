@@ -1,0 +1,34 @@
+name: Bug report
+description: Something in HelpWell does not work as documented.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what you saw instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Smallest way to reproduce it
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: HelpWell version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: framework
+    attributes:
+      label: Framework HelpWell is mounted in
+      placeholder: Next.js 15, Hono, Express…
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Output of `npx helpwell doctor`
+      render: text

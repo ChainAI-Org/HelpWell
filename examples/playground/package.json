@@ -1,0 +1,29 @@
+{
+  "name": "@helpwell/playground",
+  "version": "0.1.0",
+  "description": "Ridgeline: a fake SaaS product with HelpWell installed end to end.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.2.17",
+    "@helpwell/core": "workspace:*",
+    "@helpwell/dashboard": "workspace:*",
+    "@helpwell/helpcenter": "workspace:*",
+    "@helpwell/widget": "workspace:*",
+    "next": "^15.5.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "typescript": "^5.7.0"
+  }
+}

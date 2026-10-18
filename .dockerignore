@@ -1,0 +1,12 @@
+node_modules
+**/node_modules
+**/dist
+.git
+**/.env
+**/.env.local
+helpwell/data
+*.log
+.screenshots-work
+coverage
+test-results
+playwright-report

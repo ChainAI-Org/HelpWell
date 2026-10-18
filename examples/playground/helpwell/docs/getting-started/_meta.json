@@ -1,0 +1,9 @@
+{
+  "title": "Getting started",
+  "description": "Set Ridgeline up for your team in an afternoon.",
+  "icon": "rocket",
+  "tint": "lavender",
+  "order": 1,
+  "askAgent": true,
+  "visibility": "public"
+}

@@ -1,0 +1,170 @@
+name: Release check
+
+# The packages as a user would get them. Every package is packed with
+# `pnpm pack`, which rewrites `workspace:*` to real versions, and the nine
+# tarballs are installed into an empty app on one `npm install` line, so npm
+# resolves HelpWell's packages from each other rather than from the registry
+# (the "Tidewater" method). Then the app uses them: every entry point loads as
+# ESM and as CommonJS, one install boots on PGlite and answers through the
+# API, the help centre and the dashboard, and both command-line tools run.
+#
+# A file missing from `files`, an export that points nowhere, or a dependency
+# that only resolved because the workspace had it fails here, before publish.
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    paths:
+      - 'packages/**'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/release-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tarballs:
+    name: Pack, install and use the tarballs (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      # One Node version on pull requests; both on main and release tags.
+      matrix:
+        node: ${{ fromJSON(github.event_name == 'pull_request' && '[22]' || '[22, 24]') }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+
+      - name: Pack every package
+        run: |
+          out="$RUNNER_TEMP/tarballs"
+          mkdir -p "$out"
+          for package in packages/*/; do
+            (cd "$package" && pnpm pack --pack-destination "$out")
+          done
+          ls -1 "$out"
+          count=$(ls -1 "$out"/*.tgz | wc -l)
+          if [ "$count" -ne 9 ]; then
+            echo "::error::Expected 9 tarballs, packed $count."
+            exit 1
+          fi
+          # pnpm pack must have rewritten every workspace: range.
+          for tarball in "$out"/*.tgz; do
+            if tar -xOzf "$tarball" package/package.json | grep -q '"workspace:'; then
+              echo "::error::$(basename "$tarball") still has a workspace: dependency."
+              exit 1
+            fi
+          done
+
+      - name: Install all nine into an empty app, on one line
+        run: |
+          out="$RUNNER_TEMP/tarballs"
+          app="$RUNNER_TEMP/tidewater"
+          mkdir -p "$app" && cd "$app"
+          npm init -y >/dev/null
+          npm pkg set type=module
+          npm install --no-audit --no-fund \
+            "$out/helpwell-core-"*.tgz \
+            "$out/helpwell-tokens-"*.tgz \
+            "$out/helpwell-ui-"*.tgz \
+            "$out/helpwell-widget-"*.tgz \
+            "$out/helpwell-dashboard-"*.tgz \
+            "$out/helpwell-helpcenter-"*.tgz \
+            "$out/helpwell-sdk-"*.tgz \
+            "$out/helpwell-mcp-"*.tgz \
+            "$out/helpwell-0"*.tgz
+
+      - name: Use them
+        working-directory: ${{ runner.temp }}/tidewater
+        run: |
+          cat > smoke.mjs <<'SMOKE'
+          // Runs inside the scratch app, so every import below resolves to an
+          // installed tarball and never to the workspace.
+          import assert from 'node:assert/strict';
+          import { createRequire } from 'node:module';
+
+          const require = createRequire(import.meta.url);
+
+          const ENTRY_POINTS = [
+            '@helpwell/core',
+            '@helpwell/core/db',
+            '@helpwell/core/settings',
+            '@helpwell/core/content',
+            '@helpwell/core/search',
+            '@helpwell/core/agent',
+            '@helpwell/core/api',
+            '@helpwell/core/repos',
+            '@helpwell/core/setup-prompt',
+            '@helpwell/dashboard',
+            '@helpwell/helpcenter',
+            '@helpwell/mcp',
+            '@helpwell/sdk',
+            '@helpwell/tokens',
+            '@helpwell/ui',
+            '@helpwell/ui/fonts',
+            '@helpwell/widget',
+            '@helpwell/widget/server',
+          ];
+          for (const name of ENTRY_POINTS) {
+            const esm = await import(name);
+            assert.ok(Object.keys(esm).length > 0, `${name} exports nothing as ESM`);
+            const cjs = require(name);
+            assert.ok(Object.keys(cjs).length > 0, `${name} exports nothing as CommonJS`);
+          }
+          const cli = await import('helpwell');
+          assert.equal(typeof cli.capture, 'function', 'helpwell (the CLI) exports its commands');
+
+          const core = await import('@helpwell/core');
+          const { createDb, migrate } = await import('@helpwell/core/db');
+          const { widgetAssets } = await import('@helpwell/widget/server');
+          const { createHelpCenter } = await import('@helpwell/helpcenter');
+          const { createDashboard } = await import('@helpwell/dashboard');
+
+          // The browser bundle ships inside the widget package.
+          const assets = widgetAssets();
+          for (const file of ['loader.js', 'widget.js']) {
+            assert.ok(assets[file], `the widget tarball is missing ${file}`);
+          }
+
+          // One install from the tarballs: a database, its migrations, the API.
+          const { db } = await createDb({ url: 'pglite://memory' });
+          await migrate(db);
+          const api = core.createHelpWellHandler({ db, basePath: '/api/helpwell', assets });
+          const get = async (handler, path) => {
+            const response = await handler(new Request(`http://localhost${path}`));
+            assert.equal(response.status, 200, `GET ${path} answered ${response.status}`);
+            return response;
+          };
+          assert.deepEqual(await (await get(api, '/api/helpwell/health')).json(), {
+            ok: true,
+            name: 'helpwell',
+          });
+          await get(api, '/api/helpwell/assets/loader.js');
+          await get(api, '/api/helpwell/config');
+
+          const help = createHelpCenter({ db, basePath: '/help', apiPath: '/api/helpwell' });
+          await get(help, '/help');
+          const dashboard = createDashboard({
+            db,
+            basePath: '/admin',
+            apiPath: '/api/helpwell',
+            isAdmin: () => true,
+          });
+          await get(dashboard, '/admin/home');
+
+          console.log(`tarballs ok: HelpWell ${core.VERSION}`);
+          SMOKE
+          node smoke.mjs
+          npx --no-install helpwell --version
+          npx --no-install helpwell --help >/dev/null
+          test -x node_modules/.bin/helpwell-mcp

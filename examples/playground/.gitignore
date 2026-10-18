@@ -1,0 +1,2 @@
+# Written only if HELPWELL_DATABASE_URL points PGlite at a file.
+.helpwell/

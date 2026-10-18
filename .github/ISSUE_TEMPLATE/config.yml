@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/ChainAI-Org/helpwell/security/advisories/new
+    about: Please report vulnerabilities privately, never in a public issue.
+  - name: HelpWell Cloud account or billing
+    url: https://helpwell.ai/contact/
+    about: For your HelpWell Cloud workspace, contact us instead of opening a public issue.

@@ -1,0 +1,82 @@
+name: Publish
+
+# Pushing a tag like v0.1.0 publishes the nine packages to npm, with
+# provenance, after the same build, typecheck and tests as CI. The tag must
+# match the version in every package.json. Dependencies go first, so an install
+# never sees a package whose dependency is not out yet, and a version that is
+# already on npm is skipped, so a failed run can be re-run.
+#
+# Authentication: npm trusted publishing (OIDC) for this workflow once each
+# package has it set on npmjs.com. The very first release, before the packages
+# exist, uses an NPM_TOKEN repository secret instead; delete it afterwards.
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish to npm
+    # Only from the public repository, never from a fork or a private mirror.
+    if: github.repository == 'ChainAI-Org/helpwell'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - name: The tag matches every package version
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          for manifest in packages/*/package.json; do
+            actual=$(node -p "require('./$manifest').version")
+            if [ "$actual" != "$version" ]; then
+              echo "::error::$manifest is $actual, the tag is $GITHUB_REF_NAME."
+              exit 1
+            fi
+          done
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm test
+
+      - name: Pack every package
+        run: |
+          out="$RUNNER_TEMP/tarballs"
+          mkdir -p "$out"
+          for package in packages/*/; do
+            (cd "$package" && pnpm pack --pack-destination "$out")
+          done
+
+      - name: Publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm install -g npm@11
+          out="$RUNNER_TEMP/tarballs"
+          version="${GITHUB_REF_NAME#v}"
+          for name in tokens ui core widget helpcenter dashboard sdk mcp cli; do
+            manifest="packages/$name/package.json"
+            package=$(node -p "require('./$manifest').name")
+            if npm view "$package@$version" version >/dev/null 2>&1; then
+              echo "$package@$version is already on npm, skipping."
+              continue
+            fi
+            tarball=$(ls "$out"/$(echo "$package" | sed 's/^@//; s/\//-/')-"$version".tgz)
+            npm publish "$tarball" --access public --provenance
+          done

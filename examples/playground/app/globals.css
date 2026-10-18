@@ -1,0 +1,507 @@
+/* Ridgeline's own styling. Plain CSS, no framework — the interesting code in
+   this example is everywhere else, and a build step for the chrome would only
+   get in the way of reading it. */
+
+:root {
+  --ink: #17211f;
+  --ink-soft: #5b6b67;
+  --ink-faint: #8d9c98;
+  --line: #dfe6e3;
+  --ground: #f6f8f7;
+  --card: #ffffff;
+  --accent: #1f6f5c;
+  --accent-soft: #e6f1ed;
+  --amber: #a2661a;
+  --amber-soft: #fbf1e0;
+  --radius: 12px;
+  --shadow: 0 1px 2px rgb(23 33 31 / 6%), 0 8px 24px -16px rgb(23 33 31 / 24%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+h1 {
+  font-size: 26px;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+code {
+  background: #eef2f0;
+  border-radius: 5px;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  padding: 1px 5px;
+}
+
+/* ------------------------------------------------------------------ chrome */
+
+.topbar {
+  background: var(--card);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar-inner {
+  align-items: center;
+  display: flex;
+  gap: 28px;
+  margin: 0 auto;
+  max-width: 1080px;
+  padding: 0 24px;
+}
+
+.brand {
+  align-items: center;
+  color: var(--ink);
+  display: flex;
+  font-size: 16px;
+  font-weight: 650;
+  gap: 9px;
+  letter-spacing: -0.02em;
+  padding: 16px 0;
+  text-decoration: none;
+}
+
+.brand-mark {
+  background: var(--accent);
+  border-radius: 7px;
+  display: block;
+  height: 22px;
+  width: 22px;
+  clip-path: polygon(0 100%, 32% 34%, 52% 62%, 74% 12%, 100% 100%);
+}
+
+.topnav {
+  display: flex;
+  gap: 4px;
+  margin-right: auto;
+}
+
+.topnav a {
+  border-radius: 8px;
+  color: var(--ink-soft);
+  font-weight: 500;
+  padding: 7px 11px;
+  text-decoration: none;
+}
+
+.topnav a:hover {
+  background: var(--ground);
+  color: var(--ink);
+}
+
+.topnav a[aria-current="page"] {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.who {
+  align-items: center;
+  color: var(--ink-faint);
+  display: flex;
+  font-size: 13px;
+  gap: 12px;
+}
+
+.who strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.who a {
+  text-decoration: none;
+}
+
+.who a:hover {
+  text-decoration: underline;
+}
+
+.avatar {
+  align-items: center;
+  background: var(--accent);
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  font-size: 11px;
+  font-weight: 650;
+  height: 26px;
+  justify-content: center;
+  width: 26px;
+}
+
+.page {
+  margin: 0 auto;
+  max-width: 1080px;
+  padding: 32px 24px 96px;
+}
+
+.lede {
+  color: var(--ink-soft);
+  margin: 6px 0 0;
+  max-width: 62ch;
+}
+
+.section {
+  margin-top: 32px;
+}
+
+/* ------------------------------------------------------------------- cards */
+
+.cards {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  margin-top: 22px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+
+.card .label {
+  color: var(--ink-faint);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.card .value {
+  font-size: 24px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  margin-top: 6px;
+}
+
+.card .detail {
+  color: var(--ink-faint);
+  font-size: 13px;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.panel-head {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 14px 18px;
+}
+
+.panel-body {
+  padding: 18px;
+}
+
+/* ------------------------------------------------------------------ table */
+
+table {
+  border-collapse: collapse;
+  font-size: 14px;
+  width: 100%;
+}
+
+thead th {
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-faint);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 10px 18px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+tbody td {
+  border-bottom: 1px solid var(--line);
+  padding: 12px 18px;
+  vertical-align: top;
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.merchant {
+  font-weight: 550;
+}
+
+.flag {
+  color: var(--amber);
+  display: block;
+  font-size: 12.5px;
+  margin-top: 2px;
+}
+
+/* ------------------------------------------------------------------- bits */
+
+.pill {
+  border-radius: 999px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+
+.pill-draft {
+  background: #eef2f0;
+  color: var(--ink-soft);
+}
+
+.pill-pending {
+  background: var(--amber-soft);
+  color: var(--amber);
+}
+
+.pill-approved {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.pill-exported {
+  background: #e9eef8;
+  color: #3c5a9a;
+}
+
+.pill-reimbursed {
+  background: #eef2f0;
+  color: var(--ink-faint);
+}
+
+.btn {
+  background: var(--accent);
+  border: 1px solid transparent;
+  border-radius: 9px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 14px;
+  text-decoration: none;
+}
+
+.btn-quiet {
+  background: var(--card);
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.note {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  color: var(--ink-soft);
+  margin-top: 22px;
+  padding: 14px 18px;
+}
+
+.note strong {
+  color: var(--ink);
+}
+
+.note p {
+  margin: 6px 0 0;
+}
+
+.note p:first-child {
+  margin-top: 0;
+}
+
+.note-warn {
+  border-left-color: var(--amber);
+}
+
+/* -------------------------------------------------------------- settings */
+
+.rows {
+  display: grid;
+  gap: 0;
+}
+
+.row {
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 250px 1fr;
+  padding: 16px 18px;
+}
+
+.row:last-child {
+  border-bottom: 0;
+}
+
+.row h3 {
+  font-size: 14.5px;
+  font-weight: 600;
+}
+
+.row p {
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  margin: 3px 0 0;
+}
+
+.row .control {
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+/* --------------------------------------------------------------- pricing */
+
+.plans {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-top: 24px;
+}
+
+.plan {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+}
+
+.plan.featured {
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+
+.plan .price {
+  font-size: 30px;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  margin: 10px 0 2px;
+}
+
+.plan .per {
+  color: var(--ink-faint);
+  font-size: 13px;
+}
+
+.plan ul {
+  color: var(--ink-soft);
+  flex: 1;
+  font-size: 14px;
+  margin: 16px 0 20px;
+  padding-left: 18px;
+}
+
+.plan li {
+  margin-bottom: 6px;
+}
+
+/* -------------------------------------------------------------- footer */
+
+.footer {
+  border-top: 1px solid var(--line);
+  color: var(--ink-faint);
+  font-size: 13px;
+  margin: 0 auto;
+  max-width: 1080px;
+  padding: 20px 24px 48px;
+}
+
+.footer a {
+  color: var(--ink-soft);
+}
+
+.footer-badge {
+  background: var(--amber-soft);
+  border-radius: 999px;
+  color: var(--amber);
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  padding: 3px 10px;
+}
+
+/* ------------------------------------------------------------------ phones */
+
+/*
+ * The same pages, stacked for a phone: the header wraps onto a second line
+ * and the expenses table scrolls inside its panel. Nothing may push the page
+ * wider than the screen, or a phone scrolls it sideways, carrying everything
+ * fixed to the viewport (the support launcher included) off to one side.
+ */
+@media (max-width: 720px) {
+  .topbar-inner {
+    flex-wrap: wrap;
+    gap: 0 16px;
+    padding: 0 16px;
+  }
+
+  .brand {
+    padding: 12px 0 6px;
+  }
+
+  .topnav {
+    flex-wrap: wrap;
+    margin: 0 0 8px -11px;
+    order: 3;
+    width: 100%;
+  }
+
+  .who {
+    flex-wrap: wrap;
+    margin-left: auto;
+  }
+
+  .page {
+    padding: 24px 16px 96px;
+  }
+
+  .panel {
+    overflow-x: auto;
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Approvals",
+  "description": "Who signs off what, how policies decide, and what to do when something comes back.",
+  "icon": "check-check",
+  "tint": "butter",
+  "order": 3,
+  "askAgent": true,
+  "visibility": "public"
+}

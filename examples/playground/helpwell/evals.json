@@ -1,0 +1,50 @@
+{
+  "$schema": "https://helpwell.dev/schema/evals.json",
+  "cases": [
+    {
+      "id": "forward-receipt",
+      "question": "How do I forward a receipt by email?",
+      "expect": "expenses/attach-and-match-receipts",
+      "expectUnresolved": false,
+      "must": ["receipts@ridgeline.app"]
+    },
+    {
+      "id": "auto-approve-small",
+      "question": "Can small expenses approve themselves?",
+      "expect": "approvals/approval-policies",
+      "expectUnresolved": false
+    },
+    {
+      "id": "saml-audience-mismatch",
+      "question": "Our Okta test fails with saml_audience_mismatch. What does it mean?",
+      "expect": "admin-and-billing/single-sign-on",
+      "expectUnresolved": false
+    },
+    {
+      "id": "rejected-expense",
+      "question": "My expense was rejected. How do I fix it?",
+      "expect": "approvals/fix-a-rejected-expense",
+      "expectUnresolved": false
+    },
+    {
+      "id": "export-to-xero",
+      "question": "How do approved expenses get into Xero?",
+      "expect": "admin-and-billing/accounting-integrations",
+      "expectUnresolved": false
+    },
+    {
+      "id": "per-diem-by-city",
+      "question": "Can per-diem rates differ by city inside the same country?",
+      "expect": null,
+      "expectUnresolved": true,
+      "note": "The top gap on the dashboard. Once the article exists, point expect at it and flip expectUnresolved."
+    },
+    {
+      "id": "import-history",
+      "question": "Can we bulk-import three years of historical expenses from Expensify?",
+      "expect": null,
+      "expectUnresolved": true,
+      "note": "Not documented. The agent should say so rather than invent an import screen."
+    }
+  ]
+}

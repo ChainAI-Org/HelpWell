@@ -1,0 +1,180 @@
+/** Data access for the dashboard and the public surfaces. */
+
+// Conditions, the field registry and segments ride on this entry point: they
+// are what engage targeting, forms and the dashboard read contacts through.
+// See conditions/index.ts for the rule language.
+export * from './conditions/index.js';
+// Engage: definitions, the targeting engine forms reuse, stats and surveys
+// (engage/index.ts), and the runtime that picks and claims (repos/engage.ts).
+export * from './engage/index.js';
+export * from './fields/index.js';
+// Forms: definitions, the submission pipeline, giveaways and analytics
+// (forms/index.ts), and storing them, versioned (repos/forms.ts).
+export * from './forms/index.js';
+export {
+  type ArticleComparison,
+  type ArticleSource,
+  type ArticleVersion,
+  type ArticleVersionSummary,
+  articleSource,
+  compareArticleVersions,
+  getArticleVersion,
+  listArticleVersions,
+  type RestoreArticleInput,
+  type RestoreArticleResult,
+  restoreArticleVersion,
+  type SaveArticleInput,
+  type SaveArticleResult,
+  saveArticle,
+} from './repos/article-history.js';
+export {
+  CHANGELOG_STATUSES,
+  type ChangelogDetail,
+  type ChangelogInput,
+  type ChangelogPage,
+  type ChangelogStatus,
+  type ChangelogSummary,
+  type ChangelogWriteOptions,
+  changelogExistsForRef,
+  createChangelogEntry,
+  deleteChangelogEntry,
+  getChangelogEntry,
+  type ListChangelogOptions,
+  listChangelog,
+  markAllChangelogRead,
+  markChangelogRead,
+  unreadCount,
+  updateChangelogEntry,
+} from './repos/changelog.js';
+export {
+  type CollectionSummary,
+  getCollection,
+  type ListCollectionsOptions,
+  listCollections,
+  visibleArticles,
+} from './repos/collections.js';
+export {
+  type ActivityItem,
+  addContactTag,
+  CONSENT_STATES,
+  CONTACT_CSV_COLUMNS,
+  CONTACT_SOURCES,
+  type ContactDetail,
+  type ContactExport,
+  type ContactListItem,
+  type ContactPage,
+  type ContactPatch,
+  cleanAttributes,
+  contactsCsv,
+  countContacts,
+  createContact,
+  deleteContact,
+  exportContact,
+  getContact,
+  getContactActivity,
+  type ImportContactRow,
+  type ImportContactsResult,
+  importContacts,
+  isIdentified,
+  type ListContactsOptions,
+  listContacts,
+  mergedAttributes,
+  type NewContactInput,
+  normaliseTag,
+  removeContactTag,
+  resolveContactId,
+  setConsent,
+  type UpdateContactResult,
+  updateContact,
+} from './repos/contacts.js';
+export {
+  addTag,
+  type ConversationListItem,
+  type ConversationPage,
+  type ConversationThread,
+  getConversation,
+  type ListConversationsOptions,
+  listConversations,
+  markReviewed,
+  pruneConversations,
+  rateConversation,
+  removeTag,
+  setConversationStatus,
+  setMessageFeedback,
+  setTopic,
+  type ThreadMessage,
+} from './repos/conversations.js';
+export {
+  type ClaimRefusal,
+  type ClaimResult,
+  claimEngagement,
+  type EngagementDefinition,
+  type EngagementStats,
+  engagementForVisit,
+  engagementStats,
+  FORM_IMPRESSION_PREFIX,
+  type ImpressionState,
+  impressionHistory,
+  type MatchContext,
+  matchesPaths,
+  type NpsSummary,
+  npsSummary,
+  pathMatches,
+  publicEngagement,
+  recordImpression,
+  recordSurveyResponse,
+  type SurveyAnswer,
+  selectEngagements,
+  withinLimits,
+} from './repos/engage.js';
+export {
+  type EventCount,
+  type EventInput,
+  type EventPage,
+  eventCounts,
+  eventName,
+  listEvents,
+  recordEvent,
+  type TrackedEvent,
+} from './repos/events.js';
+export * from './repos/forms.js';
+export {
+  type ChecklistState,
+  checklistState,
+  noteWidgetSeen,
+  updateChecklistState,
+  type WidgetSighting,
+  widgetSighting,
+} from './repos/install-state.js';
+export {
+  type ArticleStat,
+  articlePerformance,
+  type DateRange,
+  dailySeries,
+  type Headline,
+  headline,
+  type ReportBundle,
+  rangeFor,
+  reportBundle,
+  type SearchRow,
+  type SeriesPoint,
+  type SpendRow,
+  seriesToCsv,
+  spendBreakdown,
+  type TopicCount,
+  topSearches,
+  topTopics,
+} from './repos/reports.js';
+export {
+  deleteRoadmapItem,
+  getRoadmap,
+  ROADMAP_STATUSES,
+  type RoadmapBoard,
+  type RoadmapCard,
+  type SubmitIdeaInput,
+  setRoadmapStatus,
+  submitIdea,
+  toggleVote,
+  updateRoadmapItem,
+} from './repos/roadmap.js';
+export * from './segments/index.js';

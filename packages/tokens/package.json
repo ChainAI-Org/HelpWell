@@ -1,0 +1,61 @@
+{
+  "name": "@helpwell/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens and brand marks for HelpWell.",
+  "license": "AGPL-3.0-only",
+  "author": "Workado, LLC",
+  "homepage": "https://helpwell.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChainAI-Org/helpwell.git",
+    "directory": "packages/tokens"
+  },
+  "bugs": {
+    "url": "https://github.com/ChainAI-Org/helpwell/issues"
+  },
+  "keywords": [
+    "helpwell",
+    "help desk",
+    "customer support",
+    "ai agent",
+    "documentation",
+    "knowledge base",
+    "self-hosted",
+    "open source",
+    "design tokens",
+    "css variables"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./helpwell.css": "./dist/helpwell.css",
+    "./skeleton.css": "./dist/skeleton.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup && node ./scripts/build-css.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}

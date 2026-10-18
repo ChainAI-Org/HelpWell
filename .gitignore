@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+.env
+.env.local
+.DS_Store
+Thumbs.db
+helpwell/.cache/
+test-results/
+playwright-report/
+docs/screenshots/*.tmp.png
+
+# HelpWell's own working files
+.screenshots-work/
+helpwell/data/

@@ -1,0 +1,86 @@
+{
+  "name": "@helpwell/dashboard",
+  "version": "0.1.0",
+  "description": "The HelpWell dashboard: conversations, contacts, knowledge base, gaps, reports, evals and settings.",
+  "license": "AGPL-3.0-only",
+  "author": "Workado, LLC",
+  "homepage": "https://helpwell.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChainAI-Org/helpwell.git",
+    "directory": "packages/dashboard"
+  },
+  "bugs": {
+    "url": "https://github.com/ChainAI-Org/helpwell/issues"
+  },
+  "keywords": [
+    "helpwell",
+    "help desk",
+    "customer support",
+    "ai agent",
+    "documentation",
+    "knowledge base",
+    "self-hosted",
+    "open source",
+    "admin",
+    "dashboard",
+    "intercom alternative",
+    "zendesk alternative",
+    "help scout alternative",
+    "freshdesk alternative",
+    "crisp alternative",
+    "front alternative",
+    "tidio alternative",
+    "drift alternative",
+    "livechat alternative",
+    "tawk.to alternative",
+    "zoho desk alternative",
+    "hubspot service hub alternative",
+    "gorgias alternative",
+    "kustomer alternative",
+    "chatwoot alternative",
+    "zammad alternative",
+    "intercom fin alternative",
+    "ada alternative",
+    "canny alternative",
+    "document360 alternative",
+    "appcues alternative"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@helpwell/core": "workspace:*",
+    "@helpwell/tokens": "workspace:*",
+    "drizzle-orm": "^0.45.2",
+    "@helpwell/ui": "workspace:*"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.2.17",
+    "tsup": "^8.5.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}

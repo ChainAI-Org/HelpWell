@@ -1,0 +1,186 @@
+/**
+ * @helpwell/sdk — talk to a running HelpWell from your own server.
+ *
+ * One import gets you both halves of the job a host app has: calling the API,
+ * and minting the signed token that tells HelpWell who its user is. The second
+ * is why `signIdentity` is re-exported here rather than left in core — a
+ * customer should not have to learn that the engine package exists to sign a
+ * JWT for the widget they installed.
+ *
+ * Two callers, one client:
+ *
+ *   const helpwell = new HelpWellClient({
+ *     baseUrl: 'https://app.acme.com/api/helpwell',
+ *     identitySecret: process.env.HELPWELL_IDENTITY_SECRET,
+ *     adminToken: process.env.HELPWELL_ADMIN_TOKEN,
+ *   });
+ *
+ *   // As a user: identify once, then every public call is theirs.
+ *   await helpwell.identify(await helpwell.signFor({ id: user.id, email: user.email }));
+ *   await helpwell.vote('rm_123');
+ *
+ *   // As a machine: `adminToken` is the value the server was started with,
+ *   // `createHelpWellHandler({ adminToken })`, and is sent as a bearer.
+ *   const { headline } = await helpwell.admin.reports({ range: '7d' });
+ */
+
+export { signIdentity } from '@helpwell/core';
+export type { IdentifyClaims } from '@helpwell/core/api';
+export type {
+  ListContactsOptions,
+  ListConversationsOptions,
+  ReportOptions,
+  UpdateConversationInput,
+  UpdateRoadmapInput,
+} from './admin.js';
+export { AdminApi } from './admin.js';
+export type { ContactEventsOptions, ContactsApi, TrackOptions } from './audience.js';
+export type { ChatInput, HelpWellClientOptions } from './client.js';
+export { HelpWellClient } from './client.js';
+export { HelpWellApiError } from './errors.js';
+export type {
+  CreateFormInput,
+  EntryState,
+  Form,
+  FormAnalytics,
+  FormAnalyticsOptions,
+  FormDefinition,
+  FormExport,
+  FormListItem,
+  FormPlacement,
+  FormPrompts,
+  FormRange,
+  FormSubmission,
+  FormSubmissionEvent,
+  FormSubmissionPage,
+  FormSubmitEvent,
+  FormsApi,
+  FormTemplateSummary,
+  FormType,
+  FormVerdict,
+  FormVersion,
+  FormVersionSummary,
+  GiveawayDraw,
+  GiveawayEntry,
+  GiveawayOverview,
+  GiveawayStats,
+  GiveawayWinner,
+  ListFormSubmissionsOptions,
+  ListFormsOptions,
+  RejectReason,
+  UpdateFormInput,
+} from './forms.js';
+export type {
+  ActivityItem,
+  AdminArticle,
+  ArticleComparison,
+  ArticleDetail,
+  ArticleDiffLine,
+  ArticleSource,
+  ArticleStat,
+  ArticleSummary,
+  ArticleVersion,
+  ArticleVersionOrigin,
+  ArticleVersionSummary,
+  BlockedAttempt,
+  ChangelogDetail,
+  ChangelogInput,
+  ChangelogPage,
+  ChangelogSummary,
+  ChatReply,
+  Citation,
+  CollectionSummary,
+  Condition,
+  ConditionGroup,
+  ConsentState,
+  ContactDetail,
+  ContactExport,
+  ContactField,
+  ContactListItem,
+  ContactPage,
+  ContactSource,
+  ContactUpdate,
+  ConversationListItem,
+  ConversationPage,
+  ConversationRating,
+  ConversationStatus,
+  ConversationThread,
+  DeliveryOutcome,
+  EngageClaim,
+  Engagement,
+  EngagementResults,
+  EngagementStats,
+  EngageRange,
+  EngageReport,
+  EngageVisit,
+  EvalCase,
+  EvalCaseResult,
+  EvalCheck,
+  EvalRun,
+  EvalRunResult,
+  EvalRunSummary,
+  EventCondition,
+  EventCount,
+  EventPage,
+  FieldCondition,
+  FieldPatch,
+  FieldSource,
+  FieldType,
+  Gap,
+  GapDraft,
+  GapStatus,
+  Heading,
+  Headline,
+  HelpWellBrowser,
+  IdentifyResult,
+  ImpressionState,
+  MaintenanceResult,
+  MessageFeedback,
+  MessageSource,
+  NpsBreakdown,
+  NpsSummary,
+  PersonalFields,
+  ProactiveEventName,
+  PublicAttachment,
+  PublicConfig,
+  PublicConversationSummary,
+  PublicConversationThread,
+  PublicEngagement,
+  PublicPresence,
+  PublicProactiveItem,
+  PublicStatus,
+  PublicThreadMessage,
+  QuestionResult,
+  ReportBundle,
+  ReportRange,
+  RestoreArticleResult,
+  RetryResult,
+  RoadmapBoard,
+  RoadmapCard,
+  RoadmapStatus,
+  RunEvalsInput,
+  SaveArticleInput,
+  SaveArticleResult,
+  SearchHit,
+  SearchRow,
+  Segment,
+  SegmentInput,
+  SegmentSummary,
+  SeriesPoint,
+  Settings,
+  SpendRow,
+  SpendStatus,
+  SurveyAnswer,
+  SurveyResults,
+  SurveySession,
+  ThreadMessage,
+  ToolCall,
+  TopicCount,
+  TourStepStat,
+  TrackedEvent,
+  UploadedAsset,
+  VoteResult,
+  WebhookDelivery,
+} from './types.js';
+
+export const VERSION = '0.1.0';

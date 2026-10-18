@@ -1,0 +1,9 @@
+{
+  "purple": "#7A3BEB",
+  "charcoal": "#34363B",
+  "eye_and_e_counter_path": "M 0 18 C 3 7 11 0 24 0 C 37 0 45 7 48 18 Z",
+  "eye_scale": 0.36,
+  "eye_ratio": 2.6666666666666665,
+  "p_outer_path": "M 28 0 H 76 C 94 0 104 11 104 29 V 75 C 104 94 93 104 76 104 H 29 L 7 128 Q 0 135 0 125 V 29 C 0 11 10 0 28 0 Z",
+  "p_counter_path": "M 39 26 H 65 Q 78 26 78 39 V 65 Q 78 78 65 78 H 39 Q 26 78 26 65 V 39 Q 26 26 39 26 Z"
+}

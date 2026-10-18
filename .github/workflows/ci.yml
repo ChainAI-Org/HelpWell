@@ -1,0 +1,88 @@
+name: CI
+
+# Everything a pull request has to pass: the build, types, lint, every unit
+# test, and the end-to-end journeys in a real browser. Unit tests run on both
+# supported Node versions; the browser journeys run once.
+#
+# No job is given a secret. Unit tests run against real Postgres through
+# PGlite, and vitest.setup.ts strips any key from their environment; the
+# end-to-end suite strips keys from every process it starts, answers the
+# agent with the playground's scripted model, and refuses every request that
+# would leave the runner, in the browser and on the server alike.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Build, types, lint and unit tests (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm typecheck
+      - name: Typecheck the playground and the end-to-end suite
+        run: |
+          pnpm --filter @helpwell/playground typecheck
+          pnpm exec tsc -p e2e/tsconfig.json
+      - run: pnpm lint
+      - name: Unit tests, every package
+        run: pnpm test
+
+  e2e:
+    name: End-to-end journeys (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # The journeys exercise the browser, which is the same whichever Node
+    # serves the playground; the unit tests already cover both Node versions.
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      # The version @playwright/test pins, and only Chromium: both projects
+      # (desktop and a phone) run in it.
+      - name: Install Chromium for Playwright
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Build the playground
+        run: pnpm --filter @helpwell/playground build
+      - name: Run the journeys, desktop and mobile
+        run: pnpm e2e
+      - name: Keep the report, screenshots and traces of a failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-report-node-${{ matrix.node }}
+          path: |
+            e2e/playwright-report
+            e2e/test-results
+          retention-days: 14

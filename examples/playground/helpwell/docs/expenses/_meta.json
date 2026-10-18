@@ -1,0 +1,9 @@
+{
+  "title": "Expenses and receipts",
+  "description": "Filing, receipts, mileage and everything a day-to-day user touches.",
+  "icon": "receipt",
+  "tint": "peach",
+  "order": 2,
+  "askAgent": true,
+  "visibility": "public"
+}

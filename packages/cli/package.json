@@ -1,0 +1,99 @@
+{
+  "name": "helpwell",
+  "version": "0.1.0",
+  "description": "The HelpWell CLI: install the autonomous help desk into your repo, write its knowledge base from your code, and keep it current.",
+  "license": "AGPL-3.0-only",
+  "author": "Workado, LLC",
+  "homepage": "https://helpwell.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChainAI-Org/helpwell.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/ChainAI-Org/helpwell/issues"
+  },
+  "keywords": [
+    "helpwell",
+    "help desk",
+    "customer support",
+    "ai agent",
+    "documentation",
+    "knowledge base",
+    "self-hosted",
+    "open source",
+    "cli",
+    "docs generator",
+    "openrouter",
+    "intercom alternative",
+    "zendesk alternative",
+    "help scout alternative",
+    "freshdesk alternative",
+    "crisp alternative",
+    "front alternative",
+    "tidio alternative",
+    "drift alternative",
+    "livechat alternative",
+    "tawk.to alternative",
+    "zoho desk alternative",
+    "hubspot service hub alternative",
+    "gorgias alternative",
+    "kustomer alternative",
+    "chatwoot alternative",
+    "zammad alternative",
+    "intercom fin alternative",
+    "ada alternative",
+    "canny alternative",
+    "document360 alternative",
+    "appcues alternative"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "bin": {
+    "helpwell": "./dist/bin.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rimraf dist && tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@helpwell/core": "workspace:*",
+    "drizzle-orm": "^0.45.2"
+  },
+  "peerDependencies": {
+    "playwright": ">=1.40.0",
+    "postgres": ">=3.4.0"
+  },
+  "peerDependenciesMeta": {
+    "playwright": {
+      "optional": true
+    },
+    "postgres": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}

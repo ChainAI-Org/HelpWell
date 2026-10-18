@@ -1,0 +1,104 @@
+name: Evals
+
+# Graded evals with a real model: Ridgeline's questions
+# (examples/playground/helpwell/evals.json) asked of Ridgeline's docs, answered
+# by the agent and graded through OpenRouter, with the CLI a user runs
+# (`helpwell sync`, then `helpwell eval`). It catches what the scripted model
+# in CI cannot: a prompt or retrieval change that makes real answers worse.
+#
+# Real tokens cost real money, so it runs weekly and on demand, never on
+# every push, and only where OPENROUTER_API_KEY is a repository secret.
+# Without it the run says so and stops, green.
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      threshold:
+        description: Fail when the score (0 to 100) is below this
+        required: false
+        default: '80'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: evals
+  cancel-in-progress: false
+
+jobs:
+  key:
+    name: Check for a model key
+    runs-on: ubuntu-latest
+    outputs:
+      present: ${{ steps.check.outputs.present }}
+    steps:
+      - id: check
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          if [ -n "$OPENROUTER_API_KEY" ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Evals skipped::OPENROUTER_API_KEY is not set as a repository secret, so there is no model to answer or grade with. Add it under Settings, Secrets and variables, Actions, then run this workflow again."
+            {
+              echo "### Evals skipped"
+              echo
+              echo "OPENROUTER_API_KEY is not set as a repository secret, so there is no model to answer or grade with."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  evals:
+    name: Graded evals on Ridgeline
+    needs: key
+    if: needs.key.outputs.present == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      THRESHOLD: ${{ inputs.threshold || '80' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+
+      # Ridgeline as a HelpWell project of its own: its docs, instructions,
+      # playbook and eval cases, and the config the CLI looks for. The
+      # database is a throwaway embedded one, made fresh on every run.
+      - name: Set up Ridgeline as a project
+        run: |
+          project="$RUNNER_TEMP/ridgeline"
+          mkdir -p "$project"
+          cp -R examples/playground/helpwell "$project/helpwell"
+          cat > "$project/helpwell/helpwell.config.json" <<'JSON'
+          {
+            "docs": "helpwell/docs",
+            "evalFile": "helpwell/evals.json",
+            "settings": {
+              "product": { "name": "Ridgeline", "supportEmail": "support@ridgeline.app" },
+              "agent": {
+                "name": "Fern",
+                "tone": "Warm, brief, no exclamation marks. Answer first, caveats after.",
+                "introduceAsAi": true
+              }
+            }
+          }
+          JSON
+
+      - name: Index the docs
+        working-directory: ${{ runner.temp }}/ridgeline
+        run: node "$GITHUB_WORKSPACE/packages/cli/dist/bin.js" sync
+
+      - name: Answer and grade every case
+        working-directory: ${{ runner.temp }}/ridgeline
+        run: |
+          node "$GITHUB_WORKSPACE/packages/cli/dist/bin.js" eval \
+            --ref "$GITHUB_SHA" \
+            --threshold "$THRESHOLD"

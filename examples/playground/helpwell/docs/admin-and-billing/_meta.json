@@ -1,0 +1,9 @@
+{
+  "title": "Admin and billing",
+  "description": "SSO, accounting exports, plans and invoices.",
+  "icon": "settings",
+  "tint": "mint",
+  "order": 4,
+  "askAgent": true,
+  "visibility": "public"
+}
