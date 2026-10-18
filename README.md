@@ -3032,7 +3032,7 @@ await syncContent(db, content, {
 ## Try it
 
 ```bash
-git clone https://github.com/ChainAI-Org/helpwell
+git clone https://github.com/ChainAI-Org/HelpWell
 cd helpwell
 pnpm install
 pnpm build

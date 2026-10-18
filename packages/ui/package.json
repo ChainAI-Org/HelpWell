@@ -7,11 +7,11 @@
   "homepage": "https://helpwell.ai",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ChainAI-Org/helpwell.git",
+    "url": "git+https://github.com/ChainAI-Org/HelpWell.git",
     "directory": "packages/ui"
   },
   "bugs": {
-    "url": "https://github.com/ChainAI-Org/helpwell/issues"
+    "url": "https://github.com/ChainAI-Org/HelpWell/issues"
   },
   "keywords": [
     "helpwell",

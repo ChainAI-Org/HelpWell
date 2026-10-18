@@ -26,7 +26,7 @@ jobs:
   publish:
     name: Publish to npm
     # Only from the public repository, never from a fork or a private mirror.
-    if: github.repository == 'ChainAI-Org/helpwell'
+    if: github.repository == 'ChainAI-Org/HelpWell'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

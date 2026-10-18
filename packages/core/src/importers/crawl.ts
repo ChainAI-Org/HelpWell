@@ -18,7 +18,7 @@ export interface CrawlOptions {
   onProgress?: (text: string) => void;
 }
 
-const USER_AGENT = 'HelpWell-Import/1 (+https://github.com/ChainAI-Org/helpwell)';
+const USER_AGENT = 'HelpWell-Import/1 (+https://github.com/ChainAI-Org/HelpWell)';
 
 async function get(
   doFetch: typeof fetch,

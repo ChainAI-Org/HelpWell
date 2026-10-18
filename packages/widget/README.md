@@ -280,7 +280,7 @@ Open source has no inbox and stores no customer files. A host that supplies a `S
 
 Without an extension none of these appear.
 
-Part of [HelpWell](https://github.com/ChainAI-Org/helpwell), the Autonomous Help Desk: an open-source AI agent that answers customers from a knowledge base it writes and keeps current itself. The full documentation, screenshots and getting-started guide live in the [main README](https://github.com/ChainAI-Org/helpwell#readme).
+Part of [HelpWell](https://github.com/ChainAI-Org/HelpWell), the Autonomous Help Desk: an open-source AI agent that answers customers from a knowledge base it writes and keeps current itself. The full documentation, screenshots and getting-started guide live in the [main README](https://github.com/ChainAI-Org/HelpWell#readme).
 
 ## Licence
 
