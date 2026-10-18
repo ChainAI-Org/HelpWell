@@ -105,7 +105,7 @@ const results = await helpwell.admin.forms.analytics('newsletter', { range: '7d'
 const draw = await helpwell.admin.forms.draw('launch-giveaway', { count: 3, seed: 'launch-2026' });
 ```
 
-Every submission carries its `verdict` (the bot checks) and `trusted`. See [docs/forms.md](https://github.com/ChainAI-Org/HelpWell/blob/main/docs/forms.md).
+Every submission carries its `verdict` (the bot checks) and `trusted`. See [docs/forms.md](https://github.com/ChainAI-Org/helpwell/blob/main/docs/forms.md).
 
 ## Errors
 
@@ -115,7 +115,7 @@ Every failure is a `HelpWellApiError` with `status`, `code` and `message`. `stat
 
 The response types in `@helpwell/sdk` are the wire shapes: what a repo returns with every `Date` turned into an ISO string. They are pinned to core's types by a compile-time test, so a field added to a core repo shows up here in the same release.
 
-Part of [HelpWell](https://github.com/ChainAI-Org/HelpWell), the Autonomous Help Desk: an open-source AI agent that answers customers from a knowledge base it writes and keeps current itself. The full documentation, screenshots and getting-started guide live in the [main README](https://github.com/ChainAI-Org/HelpWell#readme).
+Part of [HelpWell](https://github.com/ChainAI-Org/helpwell), the Autonomous Help Desk: an open-source AI agent that answers customers from a knowledge base it writes and keeps current itself. The full documentation, screenshots and getting-started guide live in the [main README](https://github.com/ChainAI-Org/helpwell#readme).
 
 ## Licence
 

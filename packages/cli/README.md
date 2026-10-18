@@ -13,7 +13,7 @@ npx helpwell sync
 
 `helpwell ask "how do I export invoices?"` asks the agent one question from the terminal, and `helpwell dev` keeps a conversation going. With `--offline`, or with no `OPENROUTER_API_KEY` set, neither needs a model or a key: each answer quotes the top search hit and cites it, and a question nothing matches is logged as a gap. Everything except the wording is real, so you can see what search finds, which article is cited, and the confidence score before you spend anything.
 
-Part of [HelpWell](https://github.com/ChainAI-Org/HelpWell), the Autonomous Help Desk: an open-source AI agent that answers customers from a knowledge base it writes and keeps current itself. The full documentation, screenshots and getting-started guide live in the [main README](https://github.com/ChainAI-Org/HelpWell#readme).
+Part of [HelpWell](https://github.com/ChainAI-Org/helpwell), the Autonomous Help Desk: an open-source AI agent that answers customers from a knowledge base it writes and keeps current itself. The full documentation, screenshots and getting-started guide live in the [main README](https://github.com/ChainAI-Org/helpwell#readme).
 
 ## Licence
 

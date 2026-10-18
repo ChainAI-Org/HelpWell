@@ -6,7 +6,7 @@ best contributions keep it that way.
 ## How to help
 
 The most useful things you can send are bug reports and feature requests.
-Open an [issue](https://github.com/ChainAI-Org/HelpWell/issues/new/choose):
+Open an [issue](https://github.com/ChainAI-Org/helpwell/issues/new/choose):
 the templates ask for what we need.
 
 **We are not accepting pull requests yet.** The maintainers write every

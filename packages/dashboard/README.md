@@ -34,7 +34,7 @@ When the content has no repo behind it, as when a service hosts the install and 
 
 Test deliveries, retries and the `changelog.published` and `article.published` events a save raises go through `webhookFetch` when you pass one (the same option the API takes), and otherwise through the built-in guard, which refuses anything but a public https address. `webhookFetch: false`, or `HELPWELL_WEBHOOK_GUARD=off` in `env`, turns the guard off for local development.
 
-Part of [HelpWell](https://github.com/ChainAI-Org/HelpWell), the Autonomous Help Desk: an open-source AI agent that answers customers from a knowledge base it writes and keeps current itself. The full documentation, screenshots and getting-started guide live in the [main README](https://github.com/ChainAI-Org/HelpWell#readme).
+Part of [HelpWell](https://github.com/ChainAI-Org/helpwell), the Autonomous Help Desk: an open-source AI agent that answers customers from a knowledge base it writes and keeps current itself. The full documentation, screenshots and getting-started guide live in the [main README](https://github.com/ChainAI-Org/helpwell#readme).
 
 ## Licence
 
