@@ -15,6 +15,7 @@ The primary wordmark colors the whole word “Help” purple and “Well” char
 - `svg/helpwell-widget-white.svg`: reversed white widget, with a transparent inner face area so the background shows through.
 - `svg/helpwell-mark-purple.svg`: plain p symbol without eyes, useful at very small sizes.
 - `HelpWell-preview.png`: visual overview.
+- `github-social-preview.png`: the 1280 × 640 card set as the GitHub repository's social preview.
 
 All logo SVGs are scalable vector artwork, not embedded raster images. Lettering is custom path artwork reconstructed from the approved concept; it does not require a font installation. Do not retype the name to recreate the wordmark. The source script retains editable geometry, colors, and the shared counter/eye path.
 
