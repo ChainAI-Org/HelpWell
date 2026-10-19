@@ -1,6 +1,6 @@
 {
   "name": "@helpwell/widget",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The HelpWell support widget: a Shadow DOM chat, help centre, changelog and roadmap that mounts on any page.",
   "license": "AGPL-3.0-only",
   "author": "Workado, LLC",

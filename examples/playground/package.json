@@ -1,6 +1,6 @@
 {
   "name": "@helpwell/playground",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Ridgeline: a fake SaaS product with HelpWell installed end to end.",
   "private": true,
   "type": "module",

@@ -27,7 +27,7 @@ import { runAsJson, writeJson } from './json.js';
 import { NotInstalledError } from './project.js';
 import { banner, detail, fail, heading, isVerbose, say, setVerbose, style, table } from './ui.js';
 
-export const VERSION = '0.1.0';
+export const VERSION = '0.1.1';
 
 /** What `--verbose` adds, in the words the help screens use. */
 const VERBOSE_SHOWS =

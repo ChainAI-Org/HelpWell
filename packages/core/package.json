@@ -1,6 +1,6 @@
 {
   "name": "@helpwell/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The HelpWell engine: schema, migrations, search, the support agent, and the HTTP API.",
   "license": "AGPL-3.0-only",
   "author": "Workado, LLC",

@@ -1,6 +1,6 @@
 {
   "name": "@helpwell/helpcenter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The public HelpWell help centre: articles, search, changelog and roadmap, server-rendered.",
   "license": "AGPL-3.0-only",
   "author": "Workado, LLC",

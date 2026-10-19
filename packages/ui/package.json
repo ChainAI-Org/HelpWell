@@ -1,6 +1,6 @@
 {
   "name": "@helpwell/ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Server-rendered HTML primitives shared by the HelpWell help centre and dashboard.",
   "license": "AGPL-3.0-only",
   "author": "Workado, LLC",

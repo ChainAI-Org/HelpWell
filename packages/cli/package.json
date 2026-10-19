@@ -1,6 +1,6 @@
 {
   "name": "helpwell",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The HelpWell CLI: install the autonomous help desk into your repo, write its knowledge base from your code, and keep it current.",
   "license": "AGPL-3.0-only",
   "author": "Workado, LLC",

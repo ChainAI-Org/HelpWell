@@ -1,6 +1,6 @@
 {
   "name": "@helpwell/sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Typed server-side client for the HelpWell HTTP API, plus identify-token signing.",
   "license": "AGPL-3.0-only",
   "author": "Workado, LLC",

@@ -1,6 +1,6 @@
 {
   "name": "@helpwell/mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An MCP server that lets a coding agent read gaps, search docs and draft articles against a local HelpWell.",
   "license": "AGPL-3.0-only",
   "author": "Workado, LLC",

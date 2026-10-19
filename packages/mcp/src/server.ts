@@ -18,7 +18,7 @@ import type { ToolArgs } from './tools.js';
 import { CONVERSATION_STATUSES, GAP_STATUSES, REPORT_RANGES, runTool } from './tools.js';
 
 export const SERVER_NAME = 'helpwell';
-export const SERVER_VERSION = '0.1.0';
+export const SERVER_VERSION = '0.1.1';
 
 export const TOOLS: Tool[] = [
   {
